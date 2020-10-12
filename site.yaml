@@ -1,2 +1,35 @@
-___
+---
+- name: install nginx with the my own php format 
+  hosts: webserevers
+  remote_user: ubuntu
+  become: yes
 
+  tasks:
+    - ping: ~
+
+    - name: insert index.php file
+      become: true
+     template: src=/templates/index.php dest="/var/wwww/html/index.php"
+    
+    - name: install packages in webservers group
+      become: true
+      apt: name={{ item }} state = present
+      with_items:
+        - nginx
+        - php7.4-fpm
+        - php7.4-curl
+        - php7.4-cli
+        - php7.4-intl
+    
+    - name: configuring nginx
+      template: src=/templates/nginx.conf dest="/etc/nginx/nginx.conf"
+      notify:
+        -restart php7.4-fpm
+        -restart nginx
+
+handlers:
+  - name: restart php7.4-fpm
+    service: name=php7.4-fpm state=restarted
+
+  - name: restart nginx
+    service: name=nginx state=restarted
