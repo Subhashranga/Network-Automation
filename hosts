@@ -1,5 +1,5 @@
 [haproxy] 
-haproxydev
+devhaproxy
 
 [webservers] 
 devA 
