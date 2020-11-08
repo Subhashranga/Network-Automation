@@ -103,14 +103,12 @@
   remote_user: ubuntu
 
   vars:
-    haproxy_maxconns: 4096
     haproxy_backlog: 2
-    haproxy_timeout_q: 400ms
     haproxy_timoutconnect: 5000ms
     haproxy_timeoutclient: 5000ms
     haproxy_timoutserver: 5000ms
     haproxy_http_timeout: 15s
-    haproxy_balance: leastconn
+    haproxy_balance: roundrobin
     haproxy_frontend_port: 80
 
   tasks:

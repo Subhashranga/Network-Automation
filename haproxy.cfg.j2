@@ -38,7 +38,7 @@ listen firstbalance
         mode http
         stats enable
         stats uri /haproxy?stats
-        balance roundrobin
+        balance {{ haproxy_balance }}
         option httpclose
         option forwardfor
 {% for host in groups["webservers"] %}
